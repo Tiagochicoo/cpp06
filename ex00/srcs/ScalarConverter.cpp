@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/07/17 22:13:40 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:22:57 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ std::ostream &			operator<<( std::ostream & o, ScalarConverter const & i )
 char					ScalarConverter::convertToChar(const char* str)
 {
 	char c = str[0];
-	if (!isprint(c))
+	if (!isprint(c) || c == '0')
 	{
-		std::cout << "Error: non-displayable char" << std::endl;
+		std::cout << "Non displayable";
 		return '\0';
 	}
 	return c;

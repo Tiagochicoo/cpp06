@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:14:30 by tpereira          #+#    #+#             */
-/*   Updated: 2023/07/17 22:14:16 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:26:40 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	try
 	{
 		char c = sc.convertToChar(argv[1]);
-		std::cout << "'" << c << "'" << std::endl;
+		std::cout << c << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 	try
 	{
 		float f = sc.convertToFloat(argv[1]);
-		std::cout << f << "f" << std::endl;
+        printf("%.1ff\n", f);
 	}
 	catch(const std::exception& e)
 	{
