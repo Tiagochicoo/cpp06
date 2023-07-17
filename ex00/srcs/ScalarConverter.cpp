@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/07/11 00:14:20 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:13:40 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 
 ScalarConverter::ScalarConverter()
 {
+	std::cout << "ScalarConverter Default constructor called!" << std::endl;	
 }
 
 ScalarConverter::ScalarConverter( const ScalarConverter & src )
 {
+	*this = src;
+	std::cout << "ScalarConverter Copy constructor called!" << std::endl;	
 }
 
 
@@ -31,6 +34,7 @@ ScalarConverter::ScalarConverter( const ScalarConverter & src )
 
 ScalarConverter::~ScalarConverter()
 {
+	std::cout << "ScalarConverter Destructor called!" << std::endl;	
 }
 
 
@@ -40,15 +44,14 @@ ScalarConverter::~ScalarConverter()
 
 ScalarConverter &				ScalarConverter::operator=( ScalarConverter const & rhs )
 {
-	//if ( this != &rhs )
-	//{
-		//this->_value = rhs.getValue();
-	//}
+	if (this != &rhs)
+		*this = rhs;
 	return *this;
 }
 
 std::ostream &			operator<<( std::ostream & o, ScalarConverter const & i )
 {
+	(void)i;
 	//o << "Value = " << i.getValue();
 	return o;
 }
@@ -58,43 +61,35 @@ std::ostream &			operator<<( std::ostream & o, ScalarConverter const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
-char					ScalarConverter::convertToChar(std::string str)
+char					ScalarConverter::convertToChar(const char* str)
 {
-	char c;
-
-	try
+	char c = str[0];
+	if (!isprint(c))
 	{
-		c = static_cast<char>(std::stoi(str));
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cout << "Error: non-displayable char" << std::endl;
+		return '\0';
 	}
 	return c;
 }
 
-int						ScalarConverter::convertToInt(std::string str)
+int						ScalarConverter::convertToInt(const char* str)
 {
-	int i;
-
-	try
+	int num;
+	if (std::sscanf(str, "%d", &num) != 1)
 	{
-		i = std::stoi(str);
+		std::cout << "Error: Invalid int literal format";
+		return 0;
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "Error: " << e.what() << '\n';
-	}
-	return i;
+	return num;
 }
 
-float					ScalarConverter::convertToFloat(std::string str)
+float					ScalarConverter::convertToFloat(const char* str)
 {
 	float f;
 
 	try
 	{
-		f = std::stof(str);
+		f = std::atof(str);
 	}
 	catch(const std::exception& e)
 	{
@@ -103,13 +98,13 @@ float					ScalarConverter::convertToFloat(std::string str)
 	return f;
 }
 
-double					ScalarConverter::convertToDouble(std::string str)
+double					ScalarConverter::convertToDouble(const char* str)
 {
 	double d;
 
 	try
 	{
-		d = std::stod(str);
+		d = std::atof(str);
 	}
 	catch(const std::exception& e)
 	{
