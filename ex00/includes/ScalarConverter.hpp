@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:13 by tpereira          #+#    #+#             */
-/*   Updated: 2023/07/17 22:08:28 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:15:32 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ class ScalarConverter
 
 		ScalarConverter &		operator=( ScalarConverter const & rhs );
 
-		// convert methods that take a string and convert it to the other types
-		// int, float, double and char
-		char					convertToChar(const char* str);
-		int						convertToInt(const char* str);
-		float					convertToFloat(const char* str);
-		double					convertToDouble(const char* str);
+		char					convertToChar(std::string str);
+		int						convertToInt(std::string str);
+		float					convertToFloat(std::string str);
+		double					convertToDouble(std::string str);
 
 };
 

@@ -1,6 +1,6 @@
-PROG 		= scalarConverter
+PROG 		= convert
 CXX			= g++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++11 -g -fsanitize=address
+CXXFLAGS	= -Wall -Wextra -Werror  -g -fsanitize=address
 SRCS		= ./srcs/*.cpp
 INC			= ./includes
 
@@ -9,7 +9,7 @@ all : $(PROG)
 $(PROG) : $(SRCS) $(INC)
 	@$(CXX) $(CXXFLAGS) $(SRCS) -I$(INC) -o $(PROG)
 	@printf "\e[38;5;46m ╔════════════════════════════════════╗\e[0m\n"
-	@printf "\e[38;5;46m█▓▒░	 Compiled ScalarConverter   ░▒▓█ \e[0m\n"
+	@printf "\e[38;5;46m█▓▒░	 Compiled ScalarConverter      ░▒▓█ \e[0m\n"
 	@printf "\e[38;5;46m ╚════════════════════════════════════╝\e[0m\n"
 
 clean :

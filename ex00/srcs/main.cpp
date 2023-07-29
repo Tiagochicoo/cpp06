@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:14:30 by tpereira          #+#    #+#             */
-/*   Updated: 2023/07/17 22:26:40 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:15:46 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << std::endl;
+		// std::cerr << e.what() << std::endl;
 		return 1;
 	}
 	std::cout << "float: ";
