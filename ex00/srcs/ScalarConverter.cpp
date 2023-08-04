@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/07/29 22:16:16 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:54:22 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,70 +59,178 @@ std::ostream &			operator<<( std::ostream & o, ScalarConverter const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
-char					ScalarConverter::convertToChar(const char* str)
+void ScalarConverter::setType(int type)
 {
-	char c = str[0];
-	if (!isprint(c) || c == '0')
-	{
-		c = static_cast<char>(std::stoi(str));
-		if (!std::isprint(c))
-			std::cout << "Non displayable";
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "impossible";
-	}
-	return c;
+	_type = type;
 }
 
-int						ScalarConverter::convertToInt(const char* str)
+void ScalarConverter::setValue(double value)
 {
-	int num;
-	if (std::sscanf(str, "%d", &num) != 1)
-	{
-		std::cout << "Error: Invalid int literal format";
-		return 0;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "impossible";
-	}
-	return i;
+	_value = value;
 }
 
-float					ScalarConverter::convertToFloat(const char* str)
+void ScalarConverter::getType(std::string &str)
 {
-	float f;
-
-	try
+	if (str.length() == 1 && !isdigit(str[0]))
+		setType(CHAR);
+	else if (str == "nan" || str == "nanf")
+		setType(PSEUDO);
+	else if (str == "inf" || str == "inff")
+		setType(PSEUDO);
+	else if (str == "-inf" || str == "-inff")
+		setType(PSEUDO);
+	else
 	{
-		f = std::atof(str);
+		char *endptr;
+		_value = strtod(str.c_str(), &endptr);
+		if (endptr == str.c_str())
+			setType(NOT);
+		else if (*endptr == '\0')
+		{
+			if (str.find('.') != std::string::npos)
+				setType(DOUBLE);
+			else
+				setType(INT);
+		}
+		else if (*endptr == 'f' && *(endptr + 1) == '\0')
+		{
+			if (str.find('.') != std::string::npos)
+				setType(FLOAT);
+			else
+				setType(INT);
+		}
+		else
+			setType(NOT);
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "Error: " << e.what() << '\n';
-	}
-	return f;
 }
 
-double					ScalarConverter::convertToDouble(const char* str)
+void ScalarConverter::getValue(std::string &str)
 {
-	double d;
-
-	try
+	if (_type == CHAR)
 	{
-		d = std::atof(str);
+		setValue(static_cast<double>(str[0]));
 	}
-	catch(const std::exception& e)
+	else if (_type == INT)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		setValue(static_cast<double>(atoi(str.c_str())));
 	}
-	return d;
+	else if (_type == FLOAT)
+	{
+		setValue(static_cast<double>(atof(str.c_str())));
+	}
+	else if (_type == DOUBLE)
+	{
+		setValue(static_cast<double>(strtod(str.c_str(), NULL)));
+	}
+	else if (_type == PSEUDO)
+	{
+		setValue(static_cast<double>(strtod(str.c_str(), NULL)));
+	}
+	else
+	{
+		setValue(0);
+	}
 }
+
+void ScalarConverter::convert(std::string &str)
+{
+	_str = str;
+	getType(_str);
+	getValue(_str);
+	printChar();
+	printInt();
+	printFloat();
+	
+}
+
+void ScalarConverter::printChar() const
+{
+	if (_type == CHAR)
+	{
+		std::cout << "char: '" << static_cast<char>(_value) << "'" << std::endl;
+	}
+	else if (_type == INT)
+	{
+		if (_value > 0 && _value <= 127)
+			std::cout << "char: '" << static_cast<char>(_value) << "'" << std::endl;
+		else
+			std::cout << "char: Non displayable" << std::endl;
+	}
+	else if (_type == FLOAT)
+	{
+		if (_value >= 0 && _value <= 127)
+			std::cout << "char: '" << static_cast<char>(_value) << "'" << std::endl;
+		else
+			std::cout << "char: Non displayable" << std::endl;
+	}
+	else if (_type == DOUBLE)
+	{
+		if (_value >= 0 && _value <= 127)
+			std::cout << "char: '" << static_cast<char>(_value) << "'" << std::endl;
+		else
+			std::cout << "char: Non displayable" << std::endl;
+	}
+	else if (_type == PSEUDO)
+	{
+		std::cout << "char: impossible" << std::endl;
+	}
+	else
+	{
+		std::cout << "char: impossible" << std::endl;
+	}
+}
+
+void ScalarConverter::printInt() const
+{
+	if (_type == CHAR)
+	{
+		std::cout << "int: " << static_cast<int>(_value) << std::endl;
+	}
+	else if (_type == INT)
+	{
+		std::cout << "int: " << static_cast<int>(_value) << std::endl;
+	}
+	else if (_type == FLOAT)
+	{
+		std::cout << "int: " << static_cast<int>(_value) << std::endl;
+	}
+	else if (_type == DOUBLE)
+	{
+		std::cout << "int: " << static_cast<int>(_value) << std::endl;
+	}
+	else if (_type == PSEUDO)
+	{
+		std::cout << "int: impossible" << std::endl;
+	}
+	else
+	{
+		std::cout << "int: impossible" << std::endl;
+	}
+}
+
+void ScalarConverter::printFloat() const
+{
+	float f = static_cast<float>(_value);
+	if (_type == CHAR)
+		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+	else if (_type == INT)
+		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+	else if (_type == FLOAT)
+		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+	else if (_type == DOUBLE)
+		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+	else if (_type == PSEUDO)
+		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+	else
+		std::cout << "float: impossible" << std::endl;
+}
+
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
 */
+
+
 
 
 /* ************************************************************************** */
