@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/04 18:54:22 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:31:58 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ void ScalarConverter::getType(std::string &str)
 	}
 }
 
+int ScalarConverter::calculatePrecision(std::string& str) 
+{
+	size_t decimalPoint = str.find('.');
+	return (decimalPoint != std::string::npos) ? (str.length() - decimalPoint - 1) : 0;
+}
+
 void ScalarConverter::getValue(std::string &str)
 {
 	if (_type == CHAR)
@@ -140,10 +146,10 @@ void ScalarConverter::convert(std::string &str)
 	printChar();
 	printInt();
 	printFloat();
-	
+	printDouble();	
 }
 
-void ScalarConverter::printChar() const
+void ScalarConverter::printChar()
 {
 	if (_type == CHAR)
 	{
@@ -180,7 +186,7 @@ void ScalarConverter::printChar() const
 	}
 }
 
-void ScalarConverter::printInt() const
+void ScalarConverter::printInt()
 {
 	if (_type == CHAR)
 	{
@@ -208,21 +214,41 @@ void ScalarConverter::printInt() const
 	}
 }
 
-void ScalarConverter::printFloat() const
+void ScalarConverter::printFloat()
 {
 	float f = static_cast<float>(_value);
+	int precision = calculatePrecision(_str);
+
+	std::cout << std::fixed;
+	std::cout.precision(precision);
 	if (_type == CHAR)
-		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(precision) << f << "f" << std::endl;
 	else if (_type == INT)
-		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(precision) << f << "f" << std::endl;
 	else if (_type == FLOAT)
-		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(precision) << f << "f" << std::endl;
 	else if (_type == DOUBLE)
-		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(precision) << f << "f" << std::endl;
 	else if (_type == PSEUDO)
-		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(precision) << f << "f" << std::endl;
 	else
 		std::cout << "float: impossible" << std::endl;
+}
+
+void ScalarConverter::printDouble()
+{
+	if (_type == CHAR)
+		std::cout << "double: " << _value << std::endl;
+	else if (_type == INT)
+		std::cout << "double: " << _value << std::endl;
+	else if (_type == FLOAT)
+		std::cout << "double: " << _value << std::endl;
+	else if (_type == DOUBLE)
+		std::cout << "double: " << _value << std::endl;
+	else if (_type == PSEUDO)
+		std::cout << "double: " << _value << std::endl;
+	else
+		std::cout << "double: impossible" << std::endl;
 }
 
 

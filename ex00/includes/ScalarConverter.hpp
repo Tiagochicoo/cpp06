@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:13 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/04 18:51:41 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:27:55 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ class ScalarConverter
 		void getValue(std::string &str);
 		void setValue(double value);
 
-		void printChar() const;
-		void printInt() const;
-		void printFloat() const;
+		int calculatePrecision(std::string &str);
+
+		void printChar();
+		void printInt();
+		void printFloat();
+		void printDouble();
 };
 
 std::ostream &			operator<<( std::ostream & o, ScalarConverter const & i );
