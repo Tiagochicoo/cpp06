@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/04 19:53:59 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/05 10:06:14 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,14 @@ void ScalarConverter::getValue(std::string &str)
 	{
 		setValue(static_cast<double>(str[0]));
 	}
-	else if (_type == INT)
+	else if (_type == INT || _type == DOUBLE)
 	{
-		setValue(static_cast<double>(atoi(str.c_str())));
+		std::istringstream stream(_str);
+		stream >> _value;
 	}
 	else if (_type == FLOAT)
 	{
 		setValue(static_cast<double>(atof(str.c_str())));
-	}
-	else if (_type == DOUBLE)
-	{
-		setValue(static_cast<double>(strtod(str.c_str(), NULL)));
 	}
 	else if (_type == PSEUDO)
 	{
@@ -190,24 +187,12 @@ void ScalarConverter::printChar()
 void ScalarConverter::printInt()
 {
 	int i = static_cast<int>(_value);
-    switch (_type)
-    {
-    case CHAR:
-        std::cout << "int: " << i << std::endl;
-        break;
-    case INT:
-        std::cout << "int: " << i << std::endl;
-        break;
-    case FLOAT:
-        std::cout << "int: " << i << std::endl;
-        break;
-    case DOUBLE:
-        std::cout << "int: " << i << std::endl;
-        break;
-    default:
-        std::cout << "int: impossible" << std::endl;
-        break;
-    }
+	if (_type == NOT || _type == PSEUDO)
+		std::cout << "int: impossible" << std::endl;
+	else if (_value > INT_MAX || _value < INT_MIN)
+		std::cout << "int: impossible" << std::endl;
+	else
+		std::cout << "int: " << i << std::endl;	
 }
 
 
