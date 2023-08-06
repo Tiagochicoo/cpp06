@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/05 10:06:14 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/06 15:14:39 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,19 @@ void ScalarConverter::setValue(double value)
 void ScalarConverter::getType(std::string &str)
 {
 	if (str.length() == 1 && !isdigit(str[0]))
-		setType(CHAR);
+	{
+		if (isprint(str[0]))
+			setType(CHAR);
+		else
+			setType(NOT);
+	}
 	else if (str == "nan" || str == "nanf")
 		setType(PSEUDO);
 	else if (str == "inf" || str == "inff")
 		setType(PSEUDO);
 	else if (str == "-inf" || str == "-inff")
+		setType(PSEUDO);
+	else if (str == "+inf" || str == "+inff")
 		setType(PSEUDO);
 	else
 	{
@@ -107,6 +114,9 @@ void ScalarConverter::getType(std::string &str)
 int ScalarConverter::calculatePrecision(std::string& str) 
 {
 	size_t decimalPoint = str.find('.');
+	bool hasF = str.find('f') != std::string::npos;
+	if (hasF)
+		str.erase(str.find('f'));
 	return (decimalPoint != std::string::npos) ? (str.length() - decimalPoint - 1) : 0;
 }
 
@@ -153,30 +163,12 @@ void ScalarConverter::printChar()
 	{
 		std::cout << "char: '" << c << "'" << std::endl;
 	}
-	else if (_type == INT)
+	else if (_type == INT || _type == DOUBLE || _type == FLOAT)
 	{
-		if (_value > 0 && _value <= 127)
+		if (_value >= 32 && _value <= 127)
 			std::cout << "char: '" << c << "'" << std::endl;
 		else
 			std::cout << "char: Non displayable" << std::endl;
-	}
-	else if (_type == FLOAT)
-	{
-		if (_value > 0 && _value <= 127)
-			std::cout << "char: '" << c << "'" << std::endl;
-		else
-			std::cout << "char: Non displayable" << std::endl;
-	}
-	else if (_type == DOUBLE)
-	{
-		if (_value > 0 && _value <= 127)
-			std::cout << "char: '" << c << "'" << std::endl;
-		else
-			std::cout << "char: Non displayable" << std::endl;
-	}
-	else if (_type == PSEUDO)
-	{
-		std::cout << "char: impossible" << std::endl;
 	}
 	else
 	{
@@ -195,7 +187,6 @@ void ScalarConverter::printInt()
 		std::cout << "int: " << i << std::endl;	
 }
 
-
 void ScalarConverter::printFloat()
 {
 	float f = static_cast<float>(_value);
@@ -203,24 +194,12 @@ void ScalarConverter::printFloat()
 
 	std::cout << std::fixed;
 	std::cout.precision(precision);
-	switch (_type)
-    {
-		case CHAR:
-			std::cout << "float: " << f << "f" << std::endl;
-			break;
-		case INT:
-			std::cout << "float: " << f << "f" << std::endl;
-			break;
-		case FLOAT:
-			std::cout << "float: " << f << "f" << std::endl;
-			break;
-		case DOUBLE:
-			std::cout << "float: " << f << "f" << std::endl;
-			break;
-		default:
-			std::cout << "float: impossible" << std::endl;
-			break;
-    }
+	if (_type == CHAR || _type == INT)
+		std::cout << "float: " << f << ".0f" << std::endl;
+	else if (_type == FLOAT || _type == DOUBLE || _type == PSEUDO)
+		std::cout << "float: " << f << "f" << std::endl;
+	else
+		std::cout << "float: impossible" << std::endl;
 }
 
 void ScalarConverter::printDouble()
@@ -231,7 +210,7 @@ void ScalarConverter::printDouble()
         std::cout << "double: " << _value << std::endl;
         break;
     case INT:
-        std::cout << "double: " << _value << std::endl;
+        std::cout << "double: " << _value << ".0" << std::endl;
         break;
     case FLOAT:
         std::cout << "double: " << _value << std::endl;
