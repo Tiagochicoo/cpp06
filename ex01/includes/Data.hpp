@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   Data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 18:31:55 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/11 18:53:23 by tpereira         ###   ########.fr       */
+/*   Created: 2023/08/11 18:31:40 by tpereira          #+#    #+#             */
+/*   Updated: 2023/08/11 18:54:46 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#ifndef DATA_HPP
+# define DATA_HPP
 
 # include <iostream>
- #include <stdint.h>
-# include "Data.hpp"
+# include <string>
 
-class Serializer
+class Data
 {
 	private:
 
 	public:
 
-		Serializer();
-		Serializer(Serializer const & src);
-		~Serializer();
+		Data();
+		Data(Data const & src);
+		~Data();
 
-		Serializer &		operator=( Serializer const & rhs );
+		Data &		operator=( Data const & rhs );
 
-		uintptr_t serialize(Data* ptr);
-		Data* deserialize(uintptr_t raw);
-
+		int value;
+		std::string name;
 };
 
-std::ostream &			operator<<( std::ostream & o, Serializer const & i );
+std::ostream &			operator<<( std::ostream & o, Data const & i );
 
-#endif /* ****************************************************** SERIALIZER_H */
+#endif /* ****************************************************** DATA_H */

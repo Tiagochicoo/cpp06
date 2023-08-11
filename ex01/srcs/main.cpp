@@ -5,28 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 00:14:30 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/04 18:25:12 by tpereira         ###   ########.fr       */
+/*   Created: 2023/08/11 18:32:05 by tpereira          #+#    #+#             */
+/*   Updated: 2023/08/11 18:59:32 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include <iostream>
-#include "ScalarConverter.hpp"
+#include "Serializer.hpp"
+#include "Data.hpp"
 
-int main(int argc, char* argv[])
+int main(void)
 {
-	ScalarConverter converter;
-	std::string arg1(argv[1]);
+    Data *ptr = new Data;
+    Serializer seri;
+    uintptr_t num;
 
-	if (argc != 2)
-    {
-        std::cerr << "Usage: " << argv[0] << " <C++ literal>" << std::endl;
-        return 1;
-    }
-	else
-	{
-		converter.convert(arg1);
-	}
+    ptr->name = "test";
+    ptr->value = 42;
+    std::cout << "Data *ptr:\n\n";
+    std::cout << "ptr->name " << ptr->name << std::endl;
+    std::cout << "ptr->value " << ptr->value << std::endl;
+    num = seri.serialize(ptr);
+    std::cout << num << std::endl;
+    std::cout << ptr << std::endl;
 
+    delete ptr;
     return 0;
 }

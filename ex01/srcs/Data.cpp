@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*   Data.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 18:31:22 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/11 18:54:09 by tpereira         ###   ########.fr       */
+/*   Created: 2023/08/11 18:31:19 by tpereira          #+#    #+#             */
+/*   Updated: 2023/08/11 18:52:22 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#include "Data.hpp"
 
 /*
 ** ------------------------------- CONSTRUCTOR --------------------------------
 */
 
-Serializer::Serializer()
+Data::Data()
 {
 }
 
-Serializer::Serializer( const Serializer & src )
+Data::Data( const Data & src )
 {
 	(void)src;
 }
@@ -29,7 +29,7 @@ Serializer::Serializer( const Serializer & src )
 ** -------------------------------- DESTRUCTOR --------------------------------
 */
 
-Serializer::~Serializer()
+Data::~Data()
 {
 }
 
@@ -38,7 +38,7 @@ Serializer::~Serializer()
 ** --------------------------------- OVERLOAD ---------------------------------
 */
 
-Serializer &				Serializer::operator=( Serializer const & rhs )
+Data &				Data::operator=( Data const & rhs )
 {
 	(void)rhs;
 	// if ( this != &rhs )
@@ -48,7 +48,7 @@ Serializer &				Serializer::operator=( Serializer const & rhs )
 	return *this;
 }
 
-std::ostream &			operator<<( std::ostream & o, Serializer const & i )
+std::ostream &			operator<<( std::ostream & o, Data const & i )
 {
 	(void)i;
 	// o << "Value = " << i.getValue();
@@ -60,21 +60,6 @@ std::ostream &			operator<<( std::ostream & o, Serializer const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
-uintptr_t Serializer::serialize(Data* ptr)
-{
-	uintptr_t serialized;
-
-	serialized = reinterpret_cast<uintptr_t>(ptr);
-	return (serialized);
-}
-
-Data* Serializer::deserialize(uintptr_t raw)
-{
-	Data *ptr;
-
-	ptr = reinterpret_cast<Data *>(raw);
-	return (ptr);
-}
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
