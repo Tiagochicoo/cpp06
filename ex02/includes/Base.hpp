@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Base.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 00:14:30 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/12 08:59:29 by tpereira         ###   ########.fr       */
+/*   Created: 2023/07/11 00:10:13 by tpereira          #+#    #+#             */
+/*   Updated: 2023/08/12 08:17:12 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
+#ifndef BASE_HPP
+# define BASE_HPP
 
-int main() 
+# include <iostream>
+# include <cstdlib>
+# include <ctime>
+
+class Base
 {
-    Base *obj = generate();
+	private:
 
-    std::cout << "Identifying using Base* pointer:" << std::endl;
-    identify(obj);
+	public:
+		virtual ~Base();
+};
 
-    std::cout << "Identifying using Base& reference:" << std::endl;
-    identify(*obj);
+class A : public Base {};
+class B : public Base {};
+class C : public Base {};
 
-    delete obj;
-    
-    return 0;
-}
+Base * generate(void);
+
+void identify(Base* p);
+void identify(Base& p);
+
+#endif /* ************************************************* BASE_H */
