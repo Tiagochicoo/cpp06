@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 08:41:12 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/12 09:02:46 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:06:55 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Base::~Base()
 }
 
 Base *generate(void) {
-    srand(time(nullptr));
+    srand(time(NULL));
     int random = rand() % 3;
     switch (random) {
         case 0:
@@ -28,17 +28,17 @@ Base *generate(void) {
         case 2:
             return new C();
         default:
-            return nullptr;
+            return NULL;
     }
 }
 
 void identify(Base* p) {
     if (dynamic_cast<A*>(p)) {
-        std::cout << "A" << std::endl;
+        std::cout << "A";
     } else if (dynamic_cast<B*>(p)) {
-        std::cout << "B" << std::endl;
+        std::cout << "B";
     } else if (dynamic_cast<C*>(p)) {
-        std::cout << "C" << std::endl;
+        std::cout << "C";
     }
 }
 

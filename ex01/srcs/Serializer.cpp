@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:31:22 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/12 08:13:02 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:57:22 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,12 @@ Serializer::~Serializer()
 Serializer &				Serializer::operator=( Serializer const & rhs )
 {
 	(void)rhs;
-	// if ( this != &rhs )
-	//{
-	// this->_value = rhs.getValue();
-	//}
 	return *this;
 }
 
 std::ostream &			operator<<( std::ostream & o, Serializer const & i )
 {
 	(void)i;
-	// o << "Value = " << i.getValue();
 	return o;
 }
 
