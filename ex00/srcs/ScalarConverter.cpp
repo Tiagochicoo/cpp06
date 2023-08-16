@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:18 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/16 15:11:35 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:44:20 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ std::ostream &			operator<<( std::ostream & o, ScalarConverter const & i )
 }
 
 
-/*
+/*#include <climits>
 ** --------------------------------- METHODS ----------------------------------
 */
 

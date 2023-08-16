@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:10:13 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/05 10:04:09 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:44:25 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <cstring>
 # include <iomanip>
 # include <sstream>
+# include <climits>
 
 enum {
 	NOT,

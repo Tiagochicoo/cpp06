@@ -6,7 +6,7 @@
 /*   By: tpereira <tpereira@42Lisboa.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 00:14:30 by tpereira          #+#    #+#             */
-/*   Updated: 2023/08/04 18:25:12 by tpereira         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:45:20 by tpereira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int main(int argc, char* argv[])
 {
 	ScalarConverter converter;
-	std::string arg1(argv[1]);
 
 	if (argc != 2)
     {
@@ -25,6 +24,7 @@ int main(int argc, char* argv[])
     }
 	else
 	{
+		std::string arg1(argv[1]);
 		converter.convert(arg1);
 	}
 
